@@ -17,6 +17,8 @@ spec:
           image: ghcr.io/dmitryd435/coffee-api:latest
           ports:
             - containerPort: 5000
+          imagePullSecrets:
+            - name: ghcr-secret
           env:
             - name: SQLALCHEMY_DATABASE_URI
               value: postgresql://username:password@db:5432/coffee
