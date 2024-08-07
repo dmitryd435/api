@@ -13,18 +13,18 @@ spec:
         app: coffee-api
     spec:
       containers:
-        - name: coffee-api
-          image: ghcr.io/dmitryd435/coffee-api:latest
-          ports:
-            - containerPort: 5000
-          imagePullSecrets:
-            - name: ghcr-secret
-          env:
-            - name: SQLALCHEMY_DATABASE_URI
-              value: postgresql://username:password@db:5432/coffee
-          readinessProbe:
-            httpGet:
-              path: /metrics
-              port: 5000
-            initialDelaySeconds: 5
-            periodSeconds: 10
+      - name: coffee-api
+        image: ghcr.io/dmitryd435/coffee-api:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: SQLALCHEMY_DATABASE_URI
+          value: postgresql://username:password@db:5432/coffee
+        readinessProbe:
+          httpGet:
+            path: /metrics
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+      imagePullSecrets:
+      - name: ghcr-secret
