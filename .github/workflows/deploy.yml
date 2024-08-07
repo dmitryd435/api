@@ -37,6 +37,14 @@ jobs:
       run: |
         kubectl config use-context minikube
 
+    - name: Create or update Kubernetes ConfigMap
+      run: |
+        kubectl create configmap postgres-config \
+        --from-literal=POSTGRES_DB=${{ secrets.DB_NAME }} \
+        --from-literal=POSTGRES_USER=${{ secrets.DB_USER }} \
+        --from-literal=POSTGRES_PASSWORD=${{ secrets.DB_PASSWORD }} \
+        --dry-run=client -o yaml | kubectl apply -f -
+
     - name: Deploy to Minikube
       run: |
         kubectl apply -f .kubernetes --validate=false
