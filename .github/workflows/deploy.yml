@@ -38,8 +38,6 @@ jobs:
         kubectl config use-context minikube
 
     - name: Deploy to Minikube
-      env:
-        KUBECONFIG: /home/runner/.kube/config
       run: |
         kubectl apply -f .kubernetes --validate=false
 
