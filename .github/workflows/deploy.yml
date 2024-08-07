@@ -29,12 +29,27 @@ jobs:
         docker build . --tag ghcr.io/dmitryd435/coffee-api:latest
         docker push ghcr.io/dmitryd435/coffee-api:latest
 
+    - name: Check Minikube status
+      run: |
+        minikube status
+  
+    - name: Use Minikube context
+      run: |
+        kubectl config use-context minikube
+
     - name: Deploy to Minikube
       env:
         KUBECONFIG: /home/runner/.kube/config
       run: |
-        kubectl apply -f .kubernetes
+        kubectl apply -f .kubernetes --validate=false
+
+
+
         
+
+
+        
+
 
 
 
