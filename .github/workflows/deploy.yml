@@ -29,9 +29,9 @@ jobs:
         docker build . --tag ghcr.io/dmitryd435/coffee-api:latest
         docker push ghcr.io/dmitryd435/coffee-api:latest
 
-#    - name: Check Minikube status
-#      run: |
-#        minikube status
+    - name: Check Minikube status
+      run: |
+        minikube status
   
     - name: Use Minikube context
       run: |
