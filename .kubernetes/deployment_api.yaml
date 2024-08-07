@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: coffee-api
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: coffee-api
@@ -19,7 +19,7 @@ spec:
         - containerPort: 5000
         env:
         - name: SQLALCHEMY_DATABASE_URI
-          value: postgresql://username:password@db:5432/coffee
+          value: postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@postgres:5432/$(POSTGRES_DB)
         readinessProbe:
           httpGet:
             path: /metrics
