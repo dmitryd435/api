@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coffee-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: coffee-api
+  template:
+    metadata:
+      labels:
+        app: coffee-api
+    spec:
+      containers:
+        - name: coffee-api
+          image: ghcr.io/${{ github.repository_owner }}/coffee-api:latest
+          ports:
+            - containerPort: 5000
+          env:
+            - name: SQLALCHEMY_DATABASE_URI
+              value: postgresql://username:password@db:5432/coffee
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
