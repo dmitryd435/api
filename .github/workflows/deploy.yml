@@ -52,6 +52,12 @@ jobs:
       run: |
         kubectl apply -f .kubernetes --validate=false
 
+    - name: Check API
+      run: |
+        curl -X POST http://192.168.49.2:30001/buy_coffee -H "Content-Type: application/json" -d '{"payment_amount": 1.50}'
+        curl -X POST http://192.168.49.2:30001/buy_coffee -H "Content-Type: application/json" -d '{"payment_amount": 2.50}'
+        curl -X POST http://192.168.49.2:30001/buy_coffee -H "Content-Type: application/json" -d '{"payment_amount": 3.50}'
+
 
 
         
