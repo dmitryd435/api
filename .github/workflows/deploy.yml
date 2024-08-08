@@ -26,7 +26,7 @@ jobs:
 
     - name: Build Inventory Image
       run: |
-        TAG=${GITHUB_WORKFLOW_SHA}
+        TAG="$(echo $GITHUB_SHA | head -c 8)"
         docker build . --tag ghcr.io/${{ github.repository_owner }}/coffee-api:$TAG
         docker push ghcr.io/${{ github.repository_owner }}/coffee-api:$TAG
 
@@ -45,7 +45,6 @@ jobs:
         sed -i "s|POSTGRES_USER_IN|${{ secrets.DB_USER }}|g" postgres-secret.yaml
         sed -i "s|POSTGRES_PASSWORD_IN|${{ secrets.DB_PASSWORD }}|g" postgres-secret.yaml
         sed -i "s|TAG|$TAG|g" deployment_api.yaml
-        
     - name: Deploy to Minikube
       run: |
         kubectl apply -f .kubernetes --validate=false
