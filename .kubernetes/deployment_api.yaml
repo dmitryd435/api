@@ -50,3 +50,4 @@ spec:
       imagePullSecrets:
       - name: ghcr-secret
 
+
