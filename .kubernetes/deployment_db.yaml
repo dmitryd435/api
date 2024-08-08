@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres
+  name: postgres-deployment
 spec:
   replicas: 1
   selector:
@@ -14,18 +14,18 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: 'postgres:14'
-          imagePullPolicy: IfNotPresent
+          image: postgres:14
           ports:
             - containerPort: 5432
           envFrom:
-            - configMapRef:
+            - secretRef:
                 name: postgres-secret
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data
-              name: postgresdata
+            - name: postgresdata
+              mountPath: /var/lib/postgresql/data
       volumes:
         - name: postgresdata
           persistentVolumeClaim:
             claimName: postgres-volume-claim
+
           
