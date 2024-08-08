@@ -37,19 +37,13 @@ jobs:
       run: |
         kubectl config use-context minikube
 
-    - name: Create or update Kubernetes ConfigMap
+    - name: Change var passwrd
       run: |
-        kubectl create configmap postgres-config \
-        --from-literal=POSTGRES_DB=${{ secrets.DB_NAME }} \
-        --from-literal=POSTGRES_USER=${{ secrets.DB_USER }} \
-        --from-literal=POSTGRES_PASSWORD=${{ secrets.DB_PASSWORD }} \
-        --dry-run=client -o yaml | kubectl apply -f -
+        cd .kubernetes
+        sed -i "s|POSTGRES_DB|${{ secrets.DB_NAME }}|g" postgres-secret.yaml
+        sed -i "s|POSTGRES_USER|${{ secrets.DB_USER }}|g" postgres-secret.yaml
+        sed -i "s|POSTGRES_PASSWORD|${{ secrets.DB_PASSWORD }}|g" postgres-secret.yaml
 
-    # - name: Change var passwrd
-    #   run: |
-    #     cd .kubernetes
-    #     sed -i "s|password|${{ secrets.DB_PASSWORD }}|g" postgres-config.yaml
-        
     - name: Deploy to Minikube
       run: |
         kubectl apply -f .kubernetes --validate=false
