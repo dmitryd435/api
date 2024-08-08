@@ -44,7 +44,8 @@ jobs:
         sed -i "s|POSTGRES_DB_IN|${{ secrets.DB_NAME }}|g" postgres-secret.yaml
         sed -i "s|POSTGRES_USER_IN|${{ secrets.DB_USER }}|g" postgres-secret.yaml
         sed -i "s|POSTGRES_PASSWORD_IN|${{ secrets.DB_PASSWORD }}|g" postgres-secret.yaml
-
+        sed -i "s|TAG|$TAG|g" deployment_api.yaml
+        
     - name: Deploy to Minikube
       run: |
         kubectl apply -f .kubernetes --validate=false
