@@ -10,6 +10,9 @@ jobs:
   build:
     runs-on: [self-hosted, Linux, X64]
 
+    env:
+        TAG: "$(echo $GITHUB_SHA | head -c 8)"
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -26,7 +29,6 @@ jobs:
 
     - name: Build Inventory Image
       run: |
-        TAG="$(echo $GITHUB_SHA | head -c 8)"
         docker build . --tag ghcr.io/${{ github.repository_owner }}/coffee-api:$TAG
         docker push ghcr.io/${{ github.repository_owner }}/coffee-api:$TAG
 
