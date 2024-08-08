@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: coffee-api
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: coffee-api
@@ -18,6 +18,21 @@ spec:
         ports:
         - containerPort: 5000
         env:
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: POSTGRES_DB
+        - name: POSTGRES_USER
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: POSTGRES_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_PASSWORD
         - name: SQLALCHEMY_DATABASE_URI
           value: postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@postgres:5432/$(POSTGRES_DB)
         readinessProbe:
@@ -28,3 +43,4 @@ spec:
           periodSeconds: 10
       imagePullSecrets:
       - name: ghcr-secret
+

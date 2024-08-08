@@ -44,6 +44,9 @@ jobs:
         --from-literal=POSTGRES_USER=${{ secrets.DB_USER }} \
         --from-literal=POSTGRES_PASSWORD=${{ secrets.DB_PASSWORD }} \
         --dry-run=client -o yaml | kubectl apply -f -
+
+    - name: Change var passwrd
+      run: sed -i "s|password|${{ secrets.DB_PASSWORD }}|g" postgres-secret.yaml
         
     - name: Deploy to Minikube
       run: |
