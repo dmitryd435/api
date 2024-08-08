@@ -40,9 +40,9 @@ jobs:
     - name: Change var passwrd
       run: |
         cd .kubernetes
-        sed -i "s|POSTGRES_DB|${{ secrets.DB_NAME }}|g" postgres-secret.yaml
-        sed -i "s|POSTGRES_USER|${{ secrets.DB_USER }}|g" postgres-secret.yaml
-        sed -i "s|POSTGRES_PASSWORD|${{ secrets.DB_PASSWORD }}|g" postgres-secret.yaml
+        sed -i "s|POSTGRES_DB_IN|${{ secrets.DB_NAME }}|g" postgres-secret.yaml
+        sed -i "s|POSTGRES_USER_IN|${{ secrets.DB_USER }}|g" postgres-secret.yaml
+        sed -i "s|POSTGRES_PASSWORD_IN|${{ secrets.DB_PASSWORD }}|g" postgres-secret.yaml
 
     - name: Deploy to Minikube
       run: |
