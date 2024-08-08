@@ -18,14 +18,15 @@ spec:
           ports:
             - containerPort: 5432
           envFrom:
-            - secretRef:
+            - configMapRef:
                 name: postgres-secret
           volumeMounts:
-            - name: postgresdata
+            - name: postgres-storage
               mountPath: /var/lib/postgresql/data
       volumes:
-        - name: postgresdata
+        - name: postgres-storage
           persistentVolumeClaim:
-            claimName: postgres-volume-claim
+            claimName: postgres-pvc
+
 
           
