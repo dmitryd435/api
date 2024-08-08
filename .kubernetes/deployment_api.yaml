@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
       - name: coffee-api
-        #image: ghcr.io/dmitryd435/coffee-api:latest
-        image: ghcr.io/${{ github.repository_owner }}/coffee-api:${{ github.sha }}
+        image: ghcr.io/dmitryd435/coffee-api:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 5000
         env:
