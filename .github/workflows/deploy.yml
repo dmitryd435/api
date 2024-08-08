@@ -44,13 +44,6 @@ jobs:
         --from-literal=POSTGRES_USER=${{ secrets.DB_USER }} \
         --from-literal=POSTGRES_PASSWORD=${{ secrets.DB_PASSWORD }} \
         --dry-run=client -o yaml | kubectl apply -f -
-
-    - name: Create secret for GitHub Packeges
-      run: |
-        kubectl create secret docker-registry ghcr-secret \
-        --docker-server=ghcr.io \
-        --docker-username=${{ github.repository_owner }} \
-        --docker-password=${{ secrets.TOKEN }}
         
     - name: Deploy to Minikube
       run: |
