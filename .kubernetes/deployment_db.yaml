@@ -7,6 +7,11 @@ spec:
   selector:
     matchLabels:
       app: postgres
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   template:
     metadata:
       labels:
@@ -15,6 +20,7 @@ spec:
       containers:
       - name: postgres
         image: postgres:14
+        imagePullPolicy: Always
         env:
         - name: POSTGRES_DB
           valueFrom:
