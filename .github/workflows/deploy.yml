@@ -27,8 +27,8 @@ jobs:
     - name: Build Inventory Image
       run: |
         TAG=${GITHUB_SHA}
-        docker build . --tag ghcr.io/${{ github.repository_owner }}/coffee-api:${TAG}
-        docker push ghcr.io/${{ github.repository_owner }}/coffee-api:${TAG}
+        docker build . --tag ghcr.io/${{ github.repository_owner }}/coffee-api:$TAG
+        docker push ghcr.io/${{ github.repository_owner }}/coffee-api:$TAG
 
     - name: Check Minikube status
       run: |
