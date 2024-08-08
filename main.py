@@ -1,13 +1,23 @@
-#
+import os
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from prometheus_client import Counter, generate_latest, CONTENT_TYPE_LATEST
 import uuid
 from datetime import datetime
 
 app = Flask(__name__)
+
+db_user = os.getenv('POSTGRES_USER')
+db_password = os.getenv('POSTGRES_PASSWORD')
+db_name = os.getenv('POSTGRES_DB')
+db_host = 'postgres'
+
 app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{db_user}:{db_password}@{db_host}:5432/{db_name}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db = SQLAlchemy(app)
+
+REQUEST_COUNT = Counter('request_count', 'Total Request Count', ['method', 'endpoint'])
 
 class Transaction(db.Model):
     id = db.Column(db.String, primary_key=True, default=lambda: str(uuid.uuid4()), unique=True)
@@ -29,7 +39,7 @@ def buy_coffee():
             coffee_type = "Cappuccino"
 
         transaction = Transaction(
-            id=str(uuid.uuid4()),  # Ensure a new UUID is generated
+            id=str(uuid.uuid4()),
             timestamp=datetime.utcnow(),
             payment_amount=payment_amount,
             coffee_type=coffee_type

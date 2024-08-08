@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: coffee-api
-        image: ghcr.io/dmitryd435/coffee-api:latest
+        image: ghcr.io/dmitryd435/coffee-api:${TAG}
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
