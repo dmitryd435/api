@@ -10,9 +10,6 @@ jobs:
   build:
     runs-on: [self-hosted, Linux, X64]
 
-    env:
-        TAG: "$(echo $GITHUB_SHA | head -c 8)"
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -26,6 +23,10 @@ jobs:
         registry: ghcr.io
         username: ${{ github.repository_owner }}
         password: ${{ secrets.TOKEN }}
+
+
+    - name: Set up Docker tag
+      run: echo "TAG=$(echo $GITHUB_SHA | head -c 8)" >> $GITHUB_ENV
 
     - name: Build Inventory Image
       run: |
