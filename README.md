@@ -22,15 +22,6 @@
 8. Created secret k8s for github packages:```kubectl create secret docker-registry ghcr-secret --docker-server=ghcr.io --docker-username=your_github-username --docker-password=GITHUB_TOKEN  --docker-email=yourgithub@mail.com```
 9. Scans code for secrets enabled by default in repo settings.
 10. Deployed application by Github Actions to minirube.
-11. Go to your AWS server and check API:
-    - Get api url: ```minikube service coffee-api --url```
-    In my case IP=192.168.49.2
-    API app responses examples:
-    ```curl -X POST http://192.168.49.2:30001/buy_coffee -H "Content-Type: application/json" -d '{"payment_amount": 4.50}'```
-    {"coffee_type":"Cappuccino"}
-    ```curl -X POST http://192.168.49.2:30001/buy_coffee -H "Content-Type: application/json" -d '{"payment_amount": 1.50}'```
-    {"coffee_type":"Espresso"}
-    ```curl -X POST http://192.168.49.2:30001/buy_coffee -H "Content-Type: application/json" -d '{"payment_amount": 2.50}'```
-    {"coffee_type":"Latte"}```
+
     
 
