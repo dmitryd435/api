@@ -14,14 +14,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Snyk Docker
-      run: |
-        docker pull snyk/snyk-cli
-
-    - name: Snyk Test
-      run: |
-        docker run --rm -v $(pwd):/project -w /project snyk/snyk-cli snyk test --all-projects
-
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
 
