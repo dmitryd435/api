@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: coffee-api
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: coffee-api
@@ -31,7 +31,7 @@ spec:
         - name: POSTGRES_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: postgres-secret
+              name: postgres-config
               key: POSTGRES_PASSWORD
         - name: SQLALCHEMY_DATABASE_URI
           value: postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@postgres:5432/$(POSTGRES_DB)
