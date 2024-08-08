@@ -46,7 +46,9 @@ jobs:
         --dry-run=client -o yaml | kubectl apply -f -
 
     - name: Change var passwrd
-      run: sed -i "s|password|${{ secrets.DB_PASSWORD }}|g" postgres-secret.yaml
+      run: 
+        cd .kubernetes
+        sed -i "s|password|${{ secrets.DB_PASSWORD }}|g" postgres-secret.yaml
         
     - name: Deploy to Minikube
       run: |
