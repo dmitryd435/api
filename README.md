@@ -32,4 +32,5 @@
     {"coffee_type":"Espresso"}
     ```curl -X POST http://192.168.49.2:30001/buy_coffee -H "Content-Type: application/json" -d '{"payment_amount": 2.50}'```
     {"coffee_type":"Latte"}```
+    
 
