@@ -4,6 +4,6 @@ metadata:
   name: postgres-config
 type: Opaque
 data:
-  POSTGRES_DB: {{ secrets.POSTGRES_DB }}
-  POSTGRES_USER: {{ secrets.POSTGRES_USER }}
-  POSTGRES_PASSWORD: {{ secrets.POSTGRES_PASSWORD }}
+  POSTGRES_DB: {{ .POSTGRES_DB }}
+  POSTGRES_USER: {{ .POSTGRES_USER }}
+  POSTGRES_PASSWORD: {{ .POSTGRES_PASSWORD }}
