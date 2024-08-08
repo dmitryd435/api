@@ -26,8 +26,8 @@ jobs:
 
     - name: Build Inventory Image
       run: |
-        docker build . --tag ghcr.io/dmitryd435/coffee-api:latest
-        docker push ghcr.io/dmitryd435/coffee-api:latest
+        docker build . --tag ghcr.io/${{ github.repository_owner }}/coffee-api:latest
+        docker push ghcr.io/${{ github.repository_owner }}/coffee-api:latest
 
     - name: Check Minikube status
       run: |
@@ -45,6 +45,13 @@ jobs:
         --from-literal=POSTGRES_PASSWORD=${{ secrets.DB_PASSWORD }} \
         --dry-run=client -o yaml | kubectl apply -f -
 
+    - name: Create secret for GitHub Packeges
+      run: |
+        kubectl create secret docker-registry ghcr-secret \
+        --docker-server=ghcr.io \
+        --docker-username=${{ github.repository_owner }} \
+        --docker-password=${{ secrets.TOKEN }}
+        
     - name: Deploy to Minikube
       run: |
         kubectl apply -f .kubernetes --validate=false
